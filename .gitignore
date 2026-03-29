@@ -6,3 +6,11 @@ node_modules
 *.log
 prisma/dev.db
 prisma/dev.db-journal
+
+# system prompt
+AGENTS.md
+
+# system files
+.DS_Store
+nvm-exec
+nvm.sh

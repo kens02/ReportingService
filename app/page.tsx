@@ -8,11 +8,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { authOptions } from '@/lib/auth';
 
 interface HomeProps {
-  searchParams?: { page?: string };
+  searchParams?: Promise<{ page?: string }>;
 }
 
 export default async function Home({ searchParams }: HomeProps) {
-  const page = Math.max(Number(searchParams?.page ?? '1'), 1);
+  const resolvedSearchParams = await searchParams;
+  const page = Math.max(Number(resolvedSearchParams?.page ?? '1'), 1);
   const [total, reports, session] = await Promise.all([
     prisma.report.count(),
     prisma.report.findMany({

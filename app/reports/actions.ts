@@ -119,5 +119,3 @@ export async function deleteReport(_: FormState, formData: FormData): Promise<Fo
   revalidatePath('/');
   redirect('/');
 }
-
-export const initialFormState = emptyState;

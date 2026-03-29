@@ -10,17 +10,18 @@ import { Button } from '@/components/ui/button';
 import { parseSeries } from '@/lib/validators/report';
 
 interface EditReportPageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export default async function EditReportPage({ params }: EditReportPageProps) {
+  const resolvedParams = await params;
   const session = await getServerSession(authOptions);
   if (!session) {
     redirect('/signin');
   }
 
   const report = await prisma.report.findUnique({
-    where: { id: params.id }
+    where: { id: resolvedParams.id }
   });
 
   if (!report) {
