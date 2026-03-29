@@ -10,12 +10,13 @@ import { deleteReport } from '@/app/reports/actions';
 import { parseSeries } from '@/lib/validators/report';
 
 interface ReportDetailPageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export default async function ReportDetailPage({ params }: ReportDetailPageProps) {
+  const resolvedParams = await params;
   const report = await prisma.report.findUnique({
-    where: { id: params.id }
+    where: { id: resolvedParams.id }
   });
 
   if (!report) {
